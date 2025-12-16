@@ -14,7 +14,7 @@ class evolution_hander {
 		for (i=0;i<cars.length;i++) {
 			console.log(cars[i].x);
 		}
-		for (let j = 0;j<50;j++) {
+		for (let j = 0;j<5;j++) {
 			for (let i = 0; i<5; i++) {
 				new_cars[i+j*5] = new car(cars[i].connections,j);
 				new_cars[i+j*5].y = first_y+150;
