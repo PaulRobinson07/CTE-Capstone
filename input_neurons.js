@@ -5,8 +5,6 @@ class input_neuron {
 		this.index = index;
 		this.color = "red";
 		this.value = 0;
-		ctx.font = "30px Arial";
-		ctx.textAlign = "center";
 		//this is the variable that shows the strength towards the output neurons
 		this.connection_strength = [0,0,0];
 		this.randomize_weights();
@@ -19,6 +17,8 @@ class input_neuron {
 	}
 	draw_weights() {
 		ctx.setTransform(1, 0, 0, 1, 0, 0);
+		ctx.font = "30px Arial";
+		ctx.textAlign = "center";
 		ctx.lineWidth = this.width;
 		for (let i=0;i<this.car.neurons[1].length;i++) {
 			ctx.globalAlpha = Math.abs(this.connection_strength[i]);

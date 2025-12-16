@@ -22,6 +22,7 @@ function draw() {
 			walls[i].car_ref = focused_car;
 		}
 	}
+	generation_controller.update();
 	ctx.fillText("Acceleration", this.x, this.y+10);
 	ctx.fillText("Right Turning", this.x, this.y+10);
 	ctx.fillText("Left Turning", this.x, this.y+10);
@@ -72,6 +73,8 @@ for (i=0; i<wall_count;i++) {
 	last_y = new_y;
 	i++;
 }
+
+generation_controller = new evolution_hander(cars);
 
 draw();
 

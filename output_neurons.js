@@ -5,11 +5,11 @@ class output_neuron {
 		this.index = index;
 		this.color = "green";
 		this.value = 0;
-		ctx.font = "30px Arial";
-		ctx.textAlign = "center";
 		this.car = car;
 	}
 	draw() {
+		ctx.font = "30px Arial";
+		ctx.textAlign = "center";
 		if (focused_car == this.car) {
 			ctx.beginPath();
 			ctx.strokeStyle = this.color;
