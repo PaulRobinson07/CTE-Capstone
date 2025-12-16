@@ -5,7 +5,7 @@ class car {
 		this.active = true;
 		this.x = canvas.width/2;
 		this.y = canvas.height/2;
-		this.angle= angle;
+		this.angle = angle;
 		this.accel = 0;
 		this.dx = 0;
 		this.color = "ivory";
@@ -25,15 +25,15 @@ class car {
 		this.car_color = "lightgreen";
 		this.neurons = [[],[],];
 		for (let i=0;i<5;i++) {
-			this.neurons[0][i] = new input_neuron(40, i*70+40,i);
+			this.neurons[0][i] = new input_neuron(40, i*70+40,i,this);
 		}
 		for (let i=0;i<3;i++) {
-			this.neurons[1][i] = new output_neuron(180, i*70+40,i);
+			this.neurons[1][i] = new output_neuron(180, i*70+40,i,this);
 		}
 	}
 	draw() {
 		//rotates the draw plane
-		ctx.setTransform(1, 0, 0, 1, canvas.width/2, canvas.height/2);
+		ctx.setTransform(1, 0, 0, 1, canvas.width/2+this.x-focused_car.x, canvas.height/2+this.y-focused_car.y);
 		//sets the color
 		ctx.fillStyle = this.car_color;
 		ctx.rotate(((this.angle-90) * Math.PI) / 180);
@@ -42,7 +42,7 @@ class car {
 		this.draw_rays();
 	}
 	draw_rays() {
-		ctx.setTransform(1, 0, 0, 1, -this.x+canvas.width/2, -this.y+canvas.height/2);
+		ctx.setTransform(1, 0, 0, 1, -focused_car.x+canvas.width/2, -focused_car.y+canvas.height/2);
 		for (let i=0;i<this.ray_angles.length;i++) {
 			this.check_ray_collision(this.ray_angles[i]+this.angle,i);
 			ctx.beginPath();
@@ -81,7 +81,7 @@ class car {
 		else {
 			this.color = "white";
 			ctx.strokeStyle = this.color;
-			this.distances[ray_n] = car0.car_sight;
+			this.distances[ray_n] = this.car_sight;
 		}
 	}
 	move() {
@@ -103,15 +103,15 @@ class car {
 		if (d) {
 			this.angle+=this.dx/10;
 		}
-		this.ai_input[0] = neurons[1][0].value*max_accel;
-		this.ai_input[1] = neurons[1][1].value*max_turn;
-		this.ai_input[2] = neurons[1][2].value*max_turn;
+		this.ai_input[0] = this.neurons[1][0].value*max_accel;
+		this.ai_input[1] = this.neurons[1][1].value*max_turn;
+		this.ai_input[2] = this.neurons[1][2].value*max_turn;
 		this.angle-=this.ai_input[1];
 		this.angle+=this.ai_input[2];
 		this.dx+=this.ai_input[0];
 		max_turn = this.dx/10;
-		car0.x+=this.dx*Math.cos((this.angle*Math.PI)/180); 
-		car0.y+=this.dx*Math.sin((this.angle*Math.PI)/180); 
+		this.x+=this.dx*Math.cos((this.angle*Math.PI)/180); 
+		this.y+=this.dx*Math.sin((this.angle*Math.PI)/180); 
 		for (let i=0;i<this.distances.length;i++) {
 			if (this.distances[i] <= 20) {
 				this.active = false;
@@ -119,7 +119,15 @@ class car {
 			}
 		}
 	}
+	update_neurons() {
+		for (let i=0;i<this.neurons.length;i++) {
+			for (let j=0;j<this.neurons[i].length;j++) {
+				this.neurons[i][j].update();
+			}
+		}
+	}
 	update() {
+		this.update_neurons();
 		if (this.active) {
 			this.move();
 		}

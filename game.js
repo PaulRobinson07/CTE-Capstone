@@ -6,11 +6,8 @@ canvas.width = window.innerWidth;
 function draw() {
 	ctx.fillStyle = "black";
 	ctx.fillRect(0,0,canvas.width,canvas.height);
-	car0.update();
-	for (let i=0;i<neurons.length;i++) {
-		for (let j=0;j<neurons[i].length;j++) {
-			neurons[i][j].update();
-		}
+	for (var i=0;i<cars.length;i++) {
+		cars[i].update();
 	}
 	for (var i = 0; i<walls.length;i++) {
 		walls[i].update();
@@ -27,8 +24,6 @@ angle = 0.00001;
 max_accel = 0.5;
 max_turn = 0; 
 
-car0 = new car();
-
 car_count = 15;
 
 cars = [];
@@ -37,22 +32,19 @@ for (let i=0;i<car_count;i++) {
 	cars[i] = new car();
 }
 
-neurons = [[],[]];
+focused_car = cars[0];
 
-for (let i=0;i<5;i++) {
-	neurons[0][i] = new input_neuron(40, i*70+40,i);
-}
-for (let i=0;i<3;i++) {
-	neurons[1][i] = new output_neuron(180, i*70+40,i);
-}
+
 walls = [];
 
 last_x = 0;
 last_y = Math.floor(Math.random()*400)+200;
 wall_dx = 800;
 wall_height = 300;
-car0.y = last_y+wall_height/2;
-car0.x = 0;
+for (i=0;i<cars.length;i++) {
+	cars[i].y = last_y+wall_height/2;
+	cars[i].x = 0;
+}
 new_x = wall_dx;
 new_y = 0;
 
@@ -61,8 +53,8 @@ wall_count = 20;
 for (i=0; i<wall_count;i++) {
 	new_y = Math.floor(Math.random()*400);
 	new_x+=wall_dx;
-	walls[i] = new wall(last_x,last_y,new_x,new_y,car0);
-	walls[i+1] = new wall(last_x,last_y+300,new_x,new_y+300,car0);
+	walls[i] = new wall(last_x,last_y,new_x,new_y,focused_car);
+	walls[i+1] = new wall(last_x,last_y+300,new_x,new_y+300,focused_car);
 	last_x = new_x;	
 	last_y = new_y;
 	i++;

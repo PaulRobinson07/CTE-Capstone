@@ -1,5 +1,5 @@
 class output_neuron {
-	constructor(x,y,index) {
+	constructor(x,y,index,car) {
 		this.x = x;
 		this.y = y;
 		this.index = index;
@@ -7,6 +7,7 @@ class output_neuron {
 		this.value = 0;
 		ctx.font = "30px Arial";
 		ctx.textAlign = "center";
+		this.car = car;
 	}
 	draw() {
 		ctx.beginPath();
@@ -19,10 +20,10 @@ class output_neuron {
 		ctx.fillText((this.value).toFixed(4), this.x, this.y+10);
 	}
 	update() {
-		for (let i=0;i<neurons[0].length;i++) {
-			this.value+=((neurons[0][i].value/car0.car_sight)*neurons[0][i].connection_strength[this.index]);
+		for (let i=0;i<this.car.neurons[0].length;i++) {
+			this.value+=((this.car.neurons[0][i].value/this.car.car_sight)*this.car.neurons[0][i].connection_strength[this.index]);
 		}
-		this.value = this.value/neurons[0].length;
+		this.value = this.value/this.car.neurons[0].length;
 		this.draw();
 	}
 }
