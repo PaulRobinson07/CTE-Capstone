@@ -3,7 +3,7 @@ class output_neuron {
 		this.x = x;
 		this.y = y;
 		this.index = index;
-		this.color = "red";
+		this.color = "green";
 		this.value = 0;
 		ctx.font = "30px Arial";
 		ctx.textAlign = "center";
@@ -16,9 +16,13 @@ class output_neuron {
 		ctx.stroke()
 		ctx.fillStyle = "white";
 		//ctx.fillText(Math.floor(this.value), this.x, this.y+10);
-		ctx.fillText(Math.round(this.value*100/car0.car_sight), this.x, this.y+10);
+		ctx.fillText((this.value).toFixed(4), this.x, this.y+10);
 	}
 	update() {
+		for (let i=0;i<neurons[0].length;i++) {
+			this.value+=((neurons[0][i].value/car0.car_sight)*neurons[0][i].connection_strength[this.index]);
+		}
+		this.value = this.value/neurons[0].length;
 		this.draw();
 	}
 }
