@@ -1,7 +1,6 @@
 //class that specifies the car and it's general functions
 class car {
-	constructor() {
-		this.reward = 0;
+	constructor(connections,index) {
 		this.active = true;
 		this.x = canvas.width/2;
 		this.y = canvas.height/2;
@@ -23,12 +22,34 @@ class car {
 		this.ai_input = [0,0,0.005];
 		this.border = [[25,20],[25,-20],[-25,-20],[-25,20]];
 		this.car_color = "lightgreen";
-		this.neurons = [[],[],];
+		this.neurons = [[],[]];
+		this.connections = [];
 		for (let i=0;i<5;i++) {
 			this.neurons[0][i] = new input_neuron(40, i*70+40,i,this);
 		}
 		for (let i=0;i<3;i++) {
 			this.neurons[1][i] = new output_neuron(180, i*70+40,i,this);
+		}
+		if (connections!=null && index!=0) {
+			for (let i=0;i<this.neurons[0].length;i++) {
+				for (let j=0;j<this.neurons[1].length;j++) {
+					let rand_val = (Math.random()-0.5)*2;
+					if (connections[i*3+j]+rand_val>1) {
+						this.neurons[0][i].connection_strength[j] = 1;
+					}
+					else if (connections[i*3+j]+rand_val<-1) {
+						this.neurons[0][i].connection_strength[j] = -1;
+					}
+					else {
+						this.neurons[0][i].connection_strength[j] = connections[i*3+j]+rand_val;
+					}
+				}
+			}
+		}
+		for (let i=0;i<this.neurons[0].length;i++) {
+			for (let j=0;j<this.neurons[1].length;j++) {
+				this.connections[i*3+j] = this.neurons[0][i].connection_strength[j];
+			}
 		}
 	}
 	draw() {
@@ -108,8 +129,8 @@ class car {
 		this.ai_input[2] = this.neurons[1][2].value*max_turn;
 		this.dx+=this.ai_input[0];
 		this.angle-=this.ai_input[1];
-		this.angle+=this.ai_input[2];
-		max_turn = this.dx/10;
+		//this.angle+=this.ai_input[2];
+		max_turn = this.dx;
 		this.x+=this.dx*Math.cos((this.angle*Math.PI)/180); 
 		this.y+=this.dx*Math.sin((this.angle*Math.PI)/180); 
 		for (let i=0;i<this.distances.length;i++) {

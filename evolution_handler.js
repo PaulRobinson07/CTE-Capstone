@@ -4,11 +4,26 @@ class evolution_hander {
 		//frames since start of generation
 		this.frame = 0;
 		//maximum frames a generation lasts
-		this.generation_time = 5000;
+		this.generation_time = 20000;
 		
 		this.generation = 1;
 	}
-	produce_next_generation() {}
+	produce_next_generation() {
+		let new_cars = [];
+		cars.sort((a,b) => b.x - a.x);
+		for (i=0;i<cars.length;i++) {
+			console.log(cars[i].x);
+		}
+		for (let j = 0;j<50;j++) {
+			for (let i = 0; i<5; i++) {
+				new_cars[i+j*5] = new car(cars[i].connections,j);
+				new_cars[i+j*5].y = first_y+150;
+				new_cars[i+j*5].x = 0;
+			}
+		}
+		cars = new_cars;
+		focused_car = cars[0];
+	}
 	draw() {
 		ctx.textAlign = "center";
 		ctx.globalAlpha = 1;

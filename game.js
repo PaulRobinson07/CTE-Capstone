@@ -43,7 +43,7 @@ car_count = 25;
 cars = [];
 
 for (let i=0;i<car_count;i++) {
-	cars[i] = new car();
+	cars[i] = new car(null);
 }
 
 focused_car = cars[0];
@@ -53,7 +53,8 @@ walls = [];
 
 last_x = 0;
 last_y = Math.floor(Math.random()*400)+200;
-wall_dx = 800;
+first_y = last_y;
+wall_dx = 400;
 wall_height = 300;
 for (i=0;i<cars.length;i++) {
 	cars[i].y = last_y+wall_height/2;
@@ -62,7 +63,7 @@ for (i=0;i<cars.length;i++) {
 new_x = wall_dx;
 new_y = 0;
 
-wall_count = 20;
+wall_count = 60;
 
 for (i=0; i<wall_count;i++) {
 	new_y = Math.floor(Math.random()*400);

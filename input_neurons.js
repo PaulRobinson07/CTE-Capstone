@@ -12,8 +12,8 @@ class input_neuron {
 	}
 	randomize_weights() {
 		this.connection_strength[0] = (Math.random()-0.5)*2;
-		this.connection_strength[1] = Math.random();
-		this.connection_strength[2] = Math.random();
+		this.connection_strength[1] = (Math.random()-0.5)*2;
+		this.connection_strength[2] = (Math.random()-0.5)*2;
 	}
 	draw_weights() {
 		ctx.setTransform(1, 0, 0, 1, 0, 0);
