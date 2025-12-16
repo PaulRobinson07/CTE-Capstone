@@ -98,17 +98,17 @@ class car {
 			}
 		}
 		if (a) {
-			this.angle-=this.dx/10;
+			this.angle-=this.dx/8;
 		}
 		if (d) {
-			this.angle+=this.dx/10;
+			this.angle+=this.dx/8;
 		}
 		this.ai_input[0] = this.neurons[1][0].value*max_accel;
 		this.ai_input[1] = this.neurons[1][1].value*max_turn;
 		this.ai_input[2] = this.neurons[1][2].value*max_turn;
+		this.dx+=this.ai_input[0];
 		this.angle-=this.ai_input[1];
 		this.angle+=this.ai_input[2];
-		this.dx+=this.ai_input[0];
 		max_turn = this.dx/10;
 		this.x+=this.dx*Math.cos((this.angle*Math.PI)/180); 
 		this.y+=this.dx*Math.sin((this.angle*Math.PI)/180); 

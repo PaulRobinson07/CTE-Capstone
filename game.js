@@ -22,6 +22,9 @@ function draw() {
 			walls[i].car_ref = focused_car;
 		}
 	}
+	ctx.fillText("Acceleration", this.x, this.y+10);
+	ctx.fillText("Right Turning", this.x, this.y+10);
+	ctx.fillText("Left Turning", this.x, this.y+10);
 	window.requestAnimationFrame(draw);
 }
 //movement controls
@@ -34,7 +37,7 @@ angle = 0.00001;
 max_accel = 0.005;
 max_turn = 0; 
 
-car_count = 15;
+car_count = 25;
 
 cars = [];
 

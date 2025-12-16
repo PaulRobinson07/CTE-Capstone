@@ -8,9 +8,6 @@ class wall {
 		this.width = 1;
 		this.car_ref = car;
 	}
-	check_collision() {
-		//balls	
-	}
 	draw() {
 		ctx.setTransform(1, 0, 0, 1, -this.car_ref.x+canvas.width/2, -this.car_ref.y+canvas.height/2);
 		ctx.strokeStyle = this.color;
@@ -23,7 +20,6 @@ class wall {
 	}
 	update() {
 		this.draw();
-		this.check_collision();
 	}
 }
 

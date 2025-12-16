@@ -10,14 +10,15 @@ class output_neuron {
 		this.car = car;
 	}
 	draw() {
-		ctx.beginPath();
-		ctx.strokeStyle = this.color;
-		ctx.arc(this.x, this.y, 30, 0, 360);
-		ctx.lineWidth = 3;
-		ctx.stroke()
-		ctx.fillStyle = "white";
-		//ctx.fillText(Math.floor(this.value), this.x, this.y+10);
-		ctx.fillText((this.value).toFixed(4), this.x, this.y+10);
+		if (focused_car == this.car) {
+			ctx.beginPath();
+			ctx.strokeStyle = this.color;
+			ctx.arc(this.x, this.y, 30, 0, 360);
+			ctx.lineWidth = 3;
+			ctx.stroke()
+			ctx.fillStyle = "white";
+			ctx.fillText((this.value).toFixed(2), this.x, this.y+10);
+		}
 	}
 	update() {
 		for (let i=0;i<this.car.neurons[0].length;i++) {
