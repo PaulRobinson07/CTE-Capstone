@@ -129,8 +129,8 @@ class car {
 		this.ai_input[2] = this.neurons[1][2].value*max_turn;
 		this.dx+=this.ai_input[0];
 		this.angle-=this.ai_input[1];
-		//this.angle+=this.ai_input[2];
-		max_turn = this.dx;
+		this.angle+=this.ai_input[2];
+		max_turn = this.dx*4;
 		this.x+=this.dx*Math.cos((this.angle*Math.PI)/180); 
 		this.y+=this.dx*Math.sin((this.angle*Math.PI)/180); 
 		for (let i=0;i<this.distances.length;i++) {
@@ -138,6 +138,9 @@ class car {
 				this.active = false;
 				this.car_color = "crimson";
 			}
+		}
+		if (this.x<0) {
+			this.active = false;
 		}
 	}
 	update_neurons() {

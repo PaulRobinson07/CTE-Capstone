@@ -90,6 +90,9 @@ document.addEventListener('keydown', function(event) {
 		case 'KeyD':
 			d = true;
 		break;
+		case 'KeyB':
+			generation_controller.frame = generation_controller.generation_time;
+		break;
 	}
 });
 document.addEventListener('keyup', function(event) {
