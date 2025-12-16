@@ -12,6 +12,16 @@ function draw() {
 	for (var i = 0; i<walls.length;i++) {
 		walls[i].update();
 	}
+	let fittest_car = focused_car;
+	for (let i=0;i<cars.length;i++) {
+		if (fittest_car.x<cars[i].x) { fittest_car = cars[i];}
+	}
+	if (fittest_car != focused_car) {
+		focused_car = fittest_car;
+		for (i=0; i<wall_count;i++) {
+			walls[i].car_ref = focused_car;
+		}
+	}
 	window.requestAnimationFrame(draw);
 }
 //movement controls
@@ -21,7 +31,7 @@ d = false;
 
 //sets the angle of the car
 angle = 0.00001;
-max_accel = 0.5;
+max_accel = 0.005;
 max_turn = 0; 
 
 car_count = 15;
